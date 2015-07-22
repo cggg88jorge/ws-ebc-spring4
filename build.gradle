@@ -1,18 +1,41 @@
-repositories {
-  mavenCentral()
-  maven { url "http://repo.spring.io/release" }
+buildscript {
+  repositories {
+    jcenter()
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+  }
+
+  dependencies {
+    classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
+    classpath 'com.sahlbach.gradle:gradle-jetty-eclipse-plugin:1.9.+'
+  }
 }
 
+apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: "jettyEclipse"
+apply plugin: 'com.bmuschko.tomcat'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+repositories {
+  jcenter()
+  maven { url "http://repo.spring.io/snapshot" }
+  maven { url "http://repo.spring.io/milestone" }
+}
+
 dependencies {
   compile 'org.codehaus.groovy:groovy-all:2.4.3'
+  testCompile 'org.codehaus.groovy:groovy:2.4.3'
+
   compile("org.springframework:spring-webmvc:4.1.7.RELEASE")
+  providedCompile "javax.servlet:javax.servlet-api:3.0.1"
 
   testCompile("org.springframework:spring-test:4.1.7.RELEASE")
-  testCompile 'org.codehaus.groovy:groovy:2.4.3'
-  testCompile 'junit:junit'
+
+  def tomcatVersion = '7.0.59'
+  tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+  "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+  "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 }
