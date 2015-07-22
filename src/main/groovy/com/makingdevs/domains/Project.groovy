@@ -2,6 +2,7 @@ package com.makingdevs.domains
 
 import javax.persistence.Entity
 import javax.persistence.Table
+import javax.persistence.Column
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
@@ -16,6 +17,7 @@ public class Project {
 
   String name
 
+  @Column(name = "code_name")
   String codeName
 
   String description

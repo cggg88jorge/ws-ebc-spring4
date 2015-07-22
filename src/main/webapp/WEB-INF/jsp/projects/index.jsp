@@ -1,15 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- document body -->
+<div class="container">
+  <h1>${message}</h1>
+</div>
 
-  </head>
-  <body>
-
-    <div class="container">
-      <h1>${message}</h1>
-    </div> <!-- /container -->
-
-  </body>
-</html>
+<div class="container">
+  <ul>
+    <c:forEach items="${projects}" var="project" >
+    <li>${project.codeName}</li>
+    </c:forEach>
+  </ul>
+  <hr>
+</div>
