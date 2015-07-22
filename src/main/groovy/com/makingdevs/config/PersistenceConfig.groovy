@@ -47,7 +47,8 @@ public class PersistenceConfig {
   public JpaVendorAdapter jpaVendorAdapter() {
     HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter()
     hibernateJpaVendorAdapter.setShowSql(false)
-    hibernateJpaVendorAdapter.setGenerateDdl(true)
+    //TODO: ESTO ESTÁ POR CUESTIONES DE EJEMPLO NO USAR EN NINGÚN PROYECTO
+    // hibernateJpaVendorAdapter.setGenerateDdl(true)
     hibernateJpaVendorAdapter.setDatabase(Database.MYSQL)
     hibernateJpaVendorAdapter
   }
