@@ -1,12 +1,13 @@
 package com.makingdevs
 
-import org.springframework.web.WebApplicationInitializer
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext
-import org.springframework.web.servlet.DispatcherServlet
-
 import javax.servlet.ServletContext
 import javax.servlet.ServletException
 import javax.servlet.ServletRegistration
+
+import org.springframework.web.WebApplicationInitializer
+import org.springframework.web.context.ContextLoaderListener
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+import org.springframework.web.servlet.DispatcherServlet
 
 class MyWebApplicationInitializer implements WebApplicationInitializer {
 
@@ -17,16 +18,16 @@ class MyWebApplicationInitializer implements WebApplicationInitializer {
 
     System.out.println("Initializing Application for " + servletContext.getServerInfo())
 
-    // Create ApplicationContext
-    AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext()
-    applicationContext.setConfigLocation(CONFIG_LOCATION)
+    AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext()
+    rootContext.register(WebConfig.class)
+    servletContext.addListener(new ContextLoaderListener(rootContext))
 
-    // Add the servlet mapping manually and make it initialize automatically
-    DispatcherServlet dispatcherServlet = new DispatcherServlet(applicationContext)
-    ServletRegistration.Dynamic servlet = servletContext.addServlet("mvc-dispatcher", dispatcherServlet)
+    AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext()
+    // dispatcherContext.register(DispatcherConfig.class)
 
-    servlet.addMapping("/")
-    servlet.setAsyncSupported(true)
-    servlet.setLoadOnStartup(1)
+    // Register and map the dispatcher servlet
+    ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(dispatcherContext))
+    dispatcher.setLoadOnStartup(1)
+    dispatcher.addMapping("/")
   }
 }
