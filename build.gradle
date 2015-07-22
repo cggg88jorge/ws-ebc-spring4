@@ -26,14 +26,28 @@ repositories {
   maven { url "http://repo.spring.io/milestone" }
 }
 
+ext.springVersion = "4.1.7.RELEASE"
+
 dependencies {
   compile 'org.codehaus.groovy:groovy-all:2.4.3'
   testCompile 'org.codehaus.groovy:groovy:2.4.3'
 
-  compile("org.springframework:spring-webmvc:4.1.7.RELEASE")
+  compile "org.springframework:spring-webmvc:${springVersion}"
   providedCompile "javax.servlet:javax.servlet-api:3.0.1"
 
-  testCompile("org.springframework:spring-test:4.1.7.RELEASE")
+  compile "org.springframework:spring-orm:${springVersion}"
+  compile "org.springframework:spring-orm:${springVersion}"
+  compile "org.hibernate:hibernate-entitymanager:4.3.1.Final"
+  compile "org.springframework.data:spring-data-jpa:1.8.0.RELEASE"
+
+  def excludesList = ['slf4j-api','jcl-over-slf4j','spring-orm','spring-context','spring-aop','spring-tx','spring-beans','spring-core']
+  compile("org.springframework.data:spring-data-jpa:1.8.0.RELEASE"){
+    excludesList.each { m -> exclude module:m }
+  }
+  compile 'org.slf4j:slf4j-log4j12:1.7.6'
+  compile 'com.h2database:h2:1.4.187'
+
+  testCompile("org.springframework:spring-test:${springVersion}")
 
   def tomcatVersion = '7.0.59'
   tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",

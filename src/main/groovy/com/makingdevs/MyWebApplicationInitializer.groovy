@@ -9,9 +9,9 @@ import org.springframework.web.context.ContextLoaderListener
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext
 import org.springframework.web.servlet.DispatcherServlet
 
-class MyWebApplicationInitializer implements WebApplicationInitializer {
+import com.makingdevs.config.WebConfig
 
-  private static final String CONFIG_LOCATION = "com.makingdevs"
+class MyWebApplicationInitializer implements WebApplicationInitializer {
 
   @Override
   void onStartup(ServletContext servletContext) throws ServletException {

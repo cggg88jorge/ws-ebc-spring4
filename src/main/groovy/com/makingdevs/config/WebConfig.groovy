@@ -1,4 +1,4 @@
-package com.makingdevs
+package com.makingdevs.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -15,25 +15,25 @@ import org.springframework.web.servlet.view.JstlView
 @Configuration
 @ComponentScan(basePackages = ["com.makingdevs"])
 @EnableWebMvc
-public class WebConfig extends WebMvcConfigurerAdapter {
+class WebConfig extends WebMvcConfigurerAdapter {
 
   @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+  void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/static/**").addResourceLocations("/libs/")
   }
 
   @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
+  void addViewControllers(ViewControllerRegistry registry) {
     registry.addViewController("/").setViewName("home")
   }
 
   @Bean
-  public ViewResolver viewResolver(){
+  ViewResolver viewResolver(){
     InternalResourceViewResolver resolver = new InternalResourceViewResolver()
     resolver.setViewClass(JstlView.class)
     resolver.setPrefix("/WEB-INF/jsp/")
     resolver.setSuffix(".jsp")
-    return resolver
+    resolver
   }
 
 }

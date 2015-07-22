@@ -1,0 +1,26 @@
+package com.makingdevs.domains
+
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+
+@Entity
+public class Project {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  Long id
+
+  String name
+
+  String codeName
+
+  String description
+
+  @Override
+  public String toString() {
+    return "Project [id=$id, name=$name, codeName=$codeNam, description=$description]"
+  }
+
+}
